@@ -1,0 +1,29 @@
+# Environment
+my_env/
+venv/
+env/
+
+# IDE files
+.vscode/
+.idea/
+
+# my_env
+my_env
+# Dependency Directories
+/node_modules
+
+# Security/Secrets
+secrets/password.txt
+internet_scraper/OneStopShop/secret.txt
+
+# Docker/Build Files
+
+# Exclude the entire secrets directory if you wish, 
+# but specifically listing the file is safer if you have other, non-secret files in 'secrets'.
+# volumes
+# e.g., if you were using a local Postgres volume:
+
+# db_data/
+
+
+

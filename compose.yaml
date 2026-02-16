@@ -1,0 +1,70 @@
+# Comments are provided throughout this file to help you get started.
+# If you need more help, visit the Docker Compose reference guide at
+# https://docs.docker.com/go/compose-spec-reference/
+
+# Here the instructions define your application as a service called "server".
+# This service is built from the Dockerfile in the current directory.
+# You can add other services your application may depend on here, such as a
+# database or a cache. For examples, see the Awesome Compose repository:
+# https://github.com/docker/awesome-compose=
+services:
+  wiki:
+    # This is the public, pre-built Docker Image provided by the Wiki.js team
+    image: ghcr.io/requarks/wiki:2 
+    environment:
+      DB_TYPE: postgres 
+      DB_HOST: team-sermonlopedia-eus2.postgres.database.azure.com
+      DB_PORT: 5432
+      DB_USER: dbadmin #@team-sermonlopedia-eus2
+      DB_PASS_FILE: /run/secrets/db_password 
+      DB_NAME: sermon_db
+      DB_SSL: true # Wiki.js image requires you to set an environment variable to explicitly enable SSL
+
+    secrets:
+      - db_password
+
+    ports:
+      # Maps your local port 3000 to the container's internal port 3000
+      - "3000:3000" 
+    restart: unless-stopped
+
+secrets:
+  db_password:
+    # This points to your local file
+    file: ./secrets/password.txt
+
+#### BELOW THIS IS FOR IF THE DATABASE IS ALSO A CONTAINER, SINCE NOT JUST USE CONNECTION STRING
+
+# The commented out section below is an example of how to define a PostgreSQL
+# database that your application can use. `depends_on` tells Docker Compose to
+# start the database before your application. The `db-data` volume persists the
+# database data between container restarts. The `db-password` secret is used
+# to set the database password. You must create `db/password.txt` and add
+# a password of your choosing to it before running `docker-compose up`.
+#     depends_on:
+#       db:
+#         condition: service_healthy
+#   db:
+#     image: postgres
+#     restart: always
+#     user: postgres
+#     secrets:
+#       - db-password
+#     volumes:
+#       - db-data:/var/lib/postgresql/data
+#     environment:
+#       - POSTGRES_DB=example
+#       - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
+#     expose:
+#       - 5432
+#     healthcheck:
+#       test: [ "CMD", "pg_isready" ]
+#       interval: 10s
+#       timeout: 5s
+#       retries: 5
+# volumes:
+#   db-data:
+# secrets:
+#   db-password:
+#     file: db/password.txt
+
