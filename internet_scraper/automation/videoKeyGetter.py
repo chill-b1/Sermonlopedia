@@ -4,7 +4,8 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
 # Configuration
-API_KEY = 'AIzaSyD-6vxCBMLgFXBqqzfg7l296d88Lvhjr94'  # Replace with your YouTube API key
+#this is a free key at the moment so no security issues here
+API_KEY = 'AIzaSyD-6vxCBMLgFXBqqzfg7l296d88Lvhjr94'
 
 # Get the directory where this script is located
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
