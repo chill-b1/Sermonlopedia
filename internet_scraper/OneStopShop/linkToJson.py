@@ -2,11 +2,11 @@ import sys
 import json
 import requests
 from openai import OpenAI
+import os
 
 #EXAMPLE USAGE: python .\internet_scraper\OneStopShop\linkToJson.py 9oK2reI7NiM tscript.json
 
-with open("secret.txt", "r") as f:
-    API_KEY = f.read().strip()
+API_KEY = os.environ.get("API_KEY")
     
 def main():
     if len(sys.argv) != 3:
