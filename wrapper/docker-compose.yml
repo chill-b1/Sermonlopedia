@@ -18,9 +18,16 @@ services:
       - "3000"
 
   wiki:
-    build: ./wiki
-    expose:
-      - "3000"
+  image: ghcr.io/requarks/wiki:2
+  expose:
+    - "3000"
+  environment:
+    DB_TYPE: postgres
+    DB_HOST: ${DB_HOST}
+    DB_PORT: ${DB_PORT}
+    DB_USER: ${DB_USER}
+    DB_PASS: ${DB_PASS}
+    DB_NAME: ${DB_NAME}
 
   analysis:
     build: ./analysis
