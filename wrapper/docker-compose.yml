@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - landing
+      - wiki
+      - analysis
+
+  landing:
+    build: ./landing
+    expose:
+      - "3000"
+
+  wiki:
+    build: ./wiki
+    expose:
+      - "3000"
+
+  analysis:
+    build: ./analysis
+    expose:
+      - "5000"
